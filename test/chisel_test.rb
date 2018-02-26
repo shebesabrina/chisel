@@ -9,6 +9,11 @@ class ConverterTest < Minitest::Test
     assert_instance_of Parser, parser
   end
 
+  def test_it_takes_input
+    parser = Parser.new("This is the first line of a paragraph.")
+    assert_equal "This is the first line of a paragraph.", parser.markdown_text
+  end
+
   def test_it_can_parse_a_paragraph
     parser = Parser.new("This is the first line of a paragraph.")
 
@@ -24,8 +29,9 @@ class ConverterTest < Minitest::Test
   end
 
   def test_it_can_parse_a_header
-    skip
-    header = '# This is a header'
-    assert_equal "<h1>#{header}</h1>", @parser.header
+    parser = Parser.new("# My Life in Desserts")
+
+    header = "My Life in Desserts"
+    assert_equal "<h1> #{header} </h1>", parser.header
   end
 end
