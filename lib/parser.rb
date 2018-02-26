@@ -13,13 +13,12 @@ class Parser
   end
 
   def header
-    # markdown_text.split
     if markdown_text.start_with?('#')
-      symbol_index = markdown_text.split[0] #
-      symbol = markdown_headers.fetch(symbol_index) #finds the value of the headers key
-      symbol_update = markdown_text.split.drop(1) #retuns string w/o #
+      symbol_index = markdown_text.split[0]
+      symbol = markdown_headers.fetch(symbol_index)
+      symbol_update = markdown_text.split.drop(1)
       new_symbol = symbol_update.join(" ")
-      symbol.gsub(" ", new_symbol) #Adds the text to the HTML format
+      symbol.gsub(" ", new_symbol) 
     end
   end
 

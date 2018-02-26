@@ -31,17 +31,17 @@ class ConverterTest < Minitest::Test
   def test_it_can_parse_a_header
     parser_1 = Parser.new("# My Life in Desserts")
     parser_2 = Parser.new("## My Life in Desserts")
-    # parser_3 = Parser.new("### My Life in Desserts")
-    # parser = Parser.new("#### My Life in Desserts")
-    # parser = Parser.new("##### My Life in Desserts")
-    # parser = Parser.new("###### My Life in Desserts")
+    parser_3 = Parser.new("### My Life in Desserts")
+    parser_4 = Parser.new("#### My Life in Desserts")
+    parser_5 = Parser.new("##### My Life in Desserts")
+    parser_6 = Parser.new("###### My Life in Desserts")
 
     header = "My Life in Desserts"
     assert_equal "<h1>#{header}</h1>", parser_1.header
     assert_equal "<h2>#{header}</h2>", parser_2.header
-    # assert_equal "<h3> #{header} </h3>", parser_3.header
-    # assert_equal "<h4> #{header} </h4>", parser.header
-    # assert_equal "<h5> #{header} </h5>", parser.header
-    # assert_equal "<h6> #{header} </h6>", parser.header
+    assert_equal "<h3>#{header}</h3>", parser_3.header
+    assert_equal "<h4>#{header}</h4>", parser_4.header
+    assert_equal "<h5>#{header}</h5>", parser_5.header
+    assert_equal "<h6>#{header}</h6>", parser_6.header
   end
 end
