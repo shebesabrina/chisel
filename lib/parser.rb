@@ -1,3 +1,4 @@
+require "./lib/dictionary.rb"
 
 class Parser
 
@@ -14,23 +15,12 @@ class Parser
 
   def header
     if markdown_text.start_with?('#')
-     markdown_symbol = markdown_text.gsub("#", "<h1>")
-     markdown_symbol.split(" ").push("</h1>").join(" ")
-   elsif markdown_text.start_with?('##')
-     markdown_symbol = markdown_text.gsub("##", "<h2>")
-     markdown_symbol.split(" ").push("</h2>").join(" ")
-   elsif markdown_text.start_with?('###')
-     markdown_symbol = markdown_text.gsub("###", "<h3>")
-     markdown_symbol.split(" ").push("</h3>").join(" ")
-   elsif markdown_text.start_with?('#####')
-     markdown_symbol = markdown_text.gsub("#####", "<h4>")
-     markdown_symbol.split(" ").push("</h5>").join(" ")
-   elsif markdown_text.start_with?('######')
-     markdown_symbol = markdown_text.gsub("######", "<h5>")
-     markdown_symbol.split(" ").push("</h2>").join(" ")
-   elsif markdown_text.start_with?('#######')
-     markdown_symbol = markdown_text.gsub("#######", "<h6>")
-     markdown_symbol.split(" ").push("</h2>").join(" ")
+      symbol_index = markdown_text.split.first #
+      include Dictionary
+      symbol = markdown_headers.fetch(symbol_index) #finds the value of the headers key
+      symbol_value = symbol.index(" ") #finds the space in the value
+      symbol.insert(symbol_value, markdown_text) #Adds the text to the HTML format
+
     end
   end
 end
