@@ -1,3 +1,4 @@
+require 'pry'
 class Parser
 
   attr_reader :markdown_text
@@ -12,11 +13,13 @@ class Parser
   end
 
   def header
+    # markdown_text.split
     if markdown_text.start_with?('#')
-      symbol_index = markdown_text.split.shift #
+      symbol_index = markdown_text.split[0] #
       symbol = markdown_headers.fetch(symbol_index) #finds the value of the headers key
-      symbol_value = symbol.index(" ") #finds the space in the value
-      symbol.insert(symbol_value, markdown_text) #Adds the text to the HTML format
+      symbol_update = markdown_text.split.drop(1) #retuns string w/o #
+      new_symbol = symbol_update.join(" ")
+      symbol.gsub(" ", new_symbol) #Adds the text to the HTML format
     end
   end
 
