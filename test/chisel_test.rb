@@ -44,4 +44,11 @@ class ConverterTest < Minitest::Test
     assert_equal "<h5>#{header}</h5>", parser_5.header
     assert_equal "<h6>#{header}</h6>", parser_6.header
   end
+
+  def test_it_can_parse_a_style
+    parser_1 = Parser.new("My *emphasized and **stronged** text* is awesome.")
+
+    assert_equal "<strong>stronged</strong>", parser_1.style
+    
+  end
 end
