@@ -23,14 +23,32 @@ class Parser
   end
 
   def style
-    binding.pry
-    markdown_text.split.map { |style|
-      style.start_with?("**") && style.end_with?("**") }
-      symbol_index = markdown_text.split[0]
-      symbol = markdown_style.fetch(symbol_index)
-      symbol_update = markdown_text.split.drop(1)
-      new_symbol = symbol_update.join(" ")
-      symbol.gsub(" ", new_symbol)
+    if markdown_text.include?("**")
+      count = 1
+    markdown_text.gsub("**") { |x|
+      if count.odd?
+        count += 1
+        x = "<strong>"
+      elsif count.even?
+        count += 1
+        x = "</strong>"
+      end
+    }
+    end
+  end
+
+  def emphasis
+    if markdown_text.include?("*")
+      count = 1
+    markdown_text.gsub("*") { |x|
+      if count.odd?
+        count += 1
+        x = "<em>"
+      elsif count.even?
+        count += 1
+        x = "</em>"
+      end
+    }
     end
   end
 
@@ -44,9 +62,4 @@ class Parser
     }
   end
 
-  def markdown_style
-    {"*" => "<em> </em>",
-    "**" => "<strong> </strong>"
-    }
-  end
 end
