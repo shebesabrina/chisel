@@ -23,33 +23,25 @@ class Parser
   end
 
   def style
-    if markdown_text.include?("**")
-      count = 1
-    markdown_text.gsub("**") { |x|
-      if count.odd?
-        count += 1
-        x = "<strong>"
-      elsif count.even?
-        count += 1
-        x = "</strong>"
-      end
-    }
-    end
+    strong_start = /(?<=\s)\*\*(?!\*)/
+    strong_start_string = /\A\*\*(?!\*)/
+    strong_end = /\*\*(?=\s)/
+    strong_end_string = /\*\*\Z/
+    markdown_text.gsub(strong_start, "<strong>")
+      .gsub(strong_end, "</strong>")
+      .gsub(strong_end_string, "</strong>")
+      .gsub(strong_start_string, "<strong>")
   end
 
   def emphasis
-    if markdown_text.include?("*")
-      count = 1
-    markdown_text.gsub("*") { |x|
-      if count.odd?
-        count += 1
-        x = "<em>"
-      elsif count.even?
-        count += 1
-        x = "</em>"
-      end
-    }
-    end
+    em_start_string = /\A\*(?!\*)/
+    em_start = /(?<=\s)[\*](?!\*)/
+    em_end = /(?<!\*)\*(?=\s)/
+    em_end_string = /(?<!\*)\*\Z/
+    markdown_text.gsub(em_start, "<em>")
+      .gsub(em_end, "</em>")
+      .gsub(em_start_string, "<em>")
+      .gsub(em_end_string, "</em>")
   end
 
   def markdown_headers

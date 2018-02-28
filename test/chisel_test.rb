@@ -52,9 +52,10 @@ class ConverterTest < Minitest::Test
   end
 
   def test_it_can_parse_an_emphasis
-    parser = Parser.new("My *emphasized and **stronged** text* is awesome.")
 
-    result = "My <em>emphasized and <strong>stronged</strong text</em> is awesome."
+    parser = Parser.new("My *emphasized and stronged text* is awesome.")
+
+    result = "My <em>emphasized and stronged text</em> is awesome."
     assert_equal result, parser.emphasis
   end
 end
