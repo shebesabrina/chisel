@@ -58,4 +58,12 @@ class ConverterTest < Minitest::Test
     result = "My <em>emphasized and stronged text</em> is awesome."
     assert_equal result, parser.emphasis
   end
+
+  def test_it_parse_a_non_emphasis
+    parser = Parser.new("* sushi")
+
+    result = "<l1>sushi"
+    assert_equal result, parser.bullet_point
+  end
+
 end

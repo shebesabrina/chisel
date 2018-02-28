@@ -34,14 +34,19 @@ class Parser
   end
 
   def emphasis
-    em_start_string = /\A\*(?!\*)/
-    em_start = /(?<=\s)[\*](?!\*)/
-    em_end = /(?<!\*)\*(?=\s)/
-    em_end_string = /(?<!\*)\*\Z/
+    em_start_string = /\A\*(?!\*\*)/
+    em_start = /(?<=\s)[\*](?![\*\s])/
+    em_end = /(?<![\*\s])\*(?=\s)/
+    em_end_string = /(?<![\*\s])\*\Z/
     markdown_text.gsub(em_start, "<em>")
       .gsub(em_end, "</em>")
-      .gsub(em_start_string, "<em>")
       .gsub(em_end_string, "</em>")
+      .gsub(em_start_string, "<em>")
+  end
+
+  def bullet_point
+    bullet = /\A\*\s(?!\*)/
+    markdown_text.gsub(bullet, "<l1>")
   end
 
   def markdown_headers
